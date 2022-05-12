@@ -1,3 +1,7 @@
+provider "aws" {
+  region = "ap-south-1"
+}
+
 resource "aws_vpc" "create-vpc" {
   cidr_block = var.vpc-cidr
   tags = {
@@ -55,7 +59,7 @@ resource "aws_route_table" "createpublicroute" {
      "Name" = "NatGateway-Terraform"
    }
  }
-resource "aws_route_table_association" "RT-private-association" {
+resource "aws_route_table_association" "RT-public-association" {
   route_table_id = aws_route_table.createpublicroute.id
   for_each = var.subnet-cidr-Public
   subnet_id = each.value
